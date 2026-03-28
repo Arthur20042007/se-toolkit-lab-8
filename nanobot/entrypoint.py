@@ -55,6 +55,14 @@ def main():
     webchat_mcp_env["NANOBOT_UI_RELAY_URL"] = "http://127.0.0.1:8766"
     webchat_mcp_env["NANOBOT_UI_RELAY_TOKEN"] = access_key
 
+    # Inject Observability MCP Server settings
+    obs_mcp = mcp_servers.setdefault("observability", {})
+    obs_mcp["command"] = "python"
+    obs_mcp["args"] = ["-m", "mcp_obs.server"]
+    obs_mcp_env = obs_mcp.setdefault("env", {})
+    obs_mcp_env["NANOBOT_VICTORIALOGS_URL"] = os.environ.get("NANOBOT_VICTORIALOGS_URL", "http://victorialogs:9428")
+    obs_mcp_env["NANOBOT_VICTORIATRACES_URL"] = os.environ.get("NANOBOT_VICTORIATRACES_URL", "http://victoriatraces:10428")
+
     with open(resolved_path, "w") as f:
         json.dump(config, f, indent=2)
 
