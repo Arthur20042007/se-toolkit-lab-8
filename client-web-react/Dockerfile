@@ -13,5 +13,5 @@ COPY . .
 RUN pnpm run build
 
 # Stage 2: Copy build output
-FROM alpine
+FROM ${REGISTRY_PREFIX_DOCKER_HUB}alpine
 COPY --from=builder /app/dist /output/

@@ -16,11 +16,26 @@ Paste your checkpoint evidence below. Add screenshots as image files in the repo
 
 ## Task 2A — Deployed agent
 
-<!-- Paste a short nanobot startup log excerpt showing the gateway started inside Docker -->
+```text
+nanobot-1  | 🐈 Starting nanobot gateway version 0.1.4.post5 on port 18790...
+nanobot-1  | 2026-03-28 15:49:57.663 | INFO     | nanobot.channels.manager:_init_channels:58 - WebChat channel enabled
+nanobot-1  | ✓ Channels enabled: webchat
+nanobot-1  | ✓ Heartbeat: every 1800s
+nanobot-1  | 2026-03-28 15:49:57.668 | INFO     | nanobot.cron.service:start:202 - Cron service started with 0 jobs
+nanobot-1  | 2026-03-28 15:50:00.406 | INFO     | nanobot.agent.loop:run:280 - Agent loop started
+```
 
 ## Task 2B — Web client
 
-<!-- Screenshot of a conversation with the agent in the Flutter web app -->
+WebSocket connection test through Caddy:
+```text
+Response: {"type":"text","content":"Here are the available labs:\n\n| Lab ID | Title |\n|--------|-------|\n| lab-01 | Lab 01 – Products, Architecture & Roles |\n| lab-02 | Lab 02 — Run, Fix, and Deploy a Backend Service |\n| lab-03 | Lab 03 — Backend API: Explore, Debug, Implement, Deploy |\n| lab-04 | Lab 04 — Testing, Front-end, and AI Agents |\n| lab-05 | Lab 05 — Data Pipeline and Analytics Dashboard |\n| lab-06 | Lab 06 — Build Your Own Agent |\n| lab-07 | Lab 07 — Build a Client with an AI Coding Agent |\n| lab-08 | lab-08 |\n\nYou can ask me about any specific lab's performance metrics, completion rates, pass rates, top learners, submission timeline, or group performance. Just let me know which lab you're interested in!","format":"markdown"}
+```
+
+Verified end-to-end path through Caddy reverse-proxy:
+- Flutter UI accessible at `/flutter`
+- WebSocket connection available at `/ws/chat` with `access_key` authentication.
+- Agent uses `mcp_lms` to fetch real data and `mcp_webchat` to deliver structured messages.
 
 ## Task 3A — Structured logging
 
